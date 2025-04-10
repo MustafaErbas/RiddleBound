@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+
         if (Instance == null)
         {
             Instance = this;
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         int finish = PlayerPrefs.GetInt("finishLine", 0);
         if (finish == 1)
         {
@@ -30,7 +33,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
 
-        
+        FinishObstacle.SetActive(true);
 
     }
     private void Update()
@@ -38,4 +41,5 @@ public class GameManager : MonoBehaviour
         
 
     }
+
 }

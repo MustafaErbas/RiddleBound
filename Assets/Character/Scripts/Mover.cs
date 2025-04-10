@@ -17,6 +17,7 @@ namespace MoverCore
         private NavMeshAgent agent;
         private Animator animator;
         private AudioSource sounds;
+
         private float currentSpeed = 0f;     // Karakterin anlık hızı
         private float targetSpeed = 0f;      // Hedef hız (yavaşlama/hızlanma durumu)
 
@@ -24,12 +25,14 @@ namespace MoverCore
         private float stepInterval = 0.5f;
 
         PickUp pickup;
-
+         
         void Start()
         {
+            //Playerın kayıtlı pozisyondan başlaması
             if (GameManager.Instance != null && GameManager.Instance.pozisyonKayitli)
             {
                 transform.position = GameManager.Instance.karakterPozisyonu;
+                GameManager.Instance.pozisyonKayitli = false;
             }
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
@@ -46,7 +49,7 @@ namespace MoverCore
             UpdateAnimator();
             HandleStepSound();
         }
-
+        
         private void HandleMovement()
         {
             float moveZ = Input.GetAxisRaw("Vertical");

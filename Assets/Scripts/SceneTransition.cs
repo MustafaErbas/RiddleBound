@@ -10,21 +10,12 @@ public class SceneTransition : MonoBehaviour
 
     void Update()
     {
-        if (oyuncu_icinde)
-        {
-            puzzleEntryText.SetActive(true);
-
             if (oyuncu_icinde && Input.GetKeyDown(KeyCode.E))
             {
-                GameManager.Instance.karakterPozisyonu = transform.position;
+                GameManager.Instance.karakterPozisyonu = GameObject.FindWithTag("Player").transform.position;
                 GameManager.Instance.pozisyonKayitli = true;
                 SceneManager.LoadScene("Puzzle");
             }
-        }
-        else
-        {
-            puzzleEntryText.SetActive(false);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,6 +23,7 @@ public class SceneTransition : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             oyuncu_icinde = true;
+            puzzleEntryText.SetActive(true);
 
             if (this.gameObject.name == "Bitis")
             {
@@ -45,6 +37,7 @@ public class SceneTransition : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             oyuncu_icinde = false;
+            puzzleEntryText.SetActive(false);
         }
     }
 }

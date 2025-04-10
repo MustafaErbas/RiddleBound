@@ -16,8 +16,7 @@ namespace PickUpCore
         // Start is called before the first frame update
         void Start()
         {
-            PlayerPrefs.DeleteAll();
-            PlayerPrefs.Save();
+
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             controller = FindObjectOfType<ParcaController>();
@@ -114,6 +113,7 @@ namespace PickUpCore
             {
                 // Collider'ý devre dýþý býrak
                 partCollider.enabled = false;
+                controller.ParcaText.SetActive(false);
                 Debug.Log(partName + " collider'ý devre dýþý býrakýldý!");
             }
             else
