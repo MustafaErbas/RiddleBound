@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public Vector3 karakterPozisyonu;
     public bool pozisyonKayitli = false;
 
+    public AudioClip soundClip;
+    private AudioSource audioSource;
+
     private void Awake()
     {
 
@@ -33,7 +36,8 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
+        StartCoroutine(PlaySoundAfterDelay(1f));
         FinishObstacle.SetActive(true);
 
     }
@@ -41,6 +45,12 @@ public class GameManager : MonoBehaviour
     {
         
 
+    }
+
+    IEnumerator PlaySoundAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        audioSource.PlayOneShot(soundClip, 5.0f);
     }
 
 }

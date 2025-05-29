@@ -4,14 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PuzzleManager : MonoBehaviour {
-  [SerializeField] private Transform gameTransform;
-  [SerializeField] private Transform piecePrefab;
+    [SerializeField] private Transform gameTransform;
+    [SerializeField] private Transform piecePrefab;
 
-  private List<Transform> pieces;
-  private int emptyLocation;
-  private int size;
-  private bool shuffling = false;
-  public GameObject winText;
+    private List<Transform> pieces;
+    private int emptyLocation;
+    private int size;
+    private bool sound = true;
+    public GameObject winText;
+
+    public AudioClip soundClip;
+    private AudioSource audioSource;
 
 
     private void CreateGamePieces(float gapThickness) {
@@ -46,11 +49,15 @@ public class PuzzleManager : MonoBehaviour {
     }
   }
 
-  void Start() {
-    pieces = new List<Transform>();
-    size = 3;
-    CreateGamePieces(0.01f);
-  }
+    void Start() {
+        audioSource = GetComponent<AudioSource>();
+        pieces = new List<Transform>();
+        size = 2;
+        CreateGamePieces(0.01f);
+        Shuffle();
+
+
+    }
 
   void Update() {
         if (Input.GetKeyDown(KeyCode.E))
@@ -58,18 +65,16 @@ public class PuzzleManager : MonoBehaviour {
             SceneManager.LoadScene("LightHouseChapter");
         }
 
-        if (!shuffling && CheckCompletion())
-        {
-            shuffling = true;
-            StartCoroutine(WaitShuffle(0.5f));
-        }
-
-        if (CheckCompletion())
+        
+        if (CheckCompletion() && sound)
         {
            //winText.SetActive(true);
             PlayerPrefs.SetInt("SlidePuzzleFinish", 1);
             PlayerPrefs.Save();
-            Debug.Log("bitti");
+
+            audioSource.PlayOneShot(soundClip);
+            sound = false;
+            
         }
 
 
@@ -104,14 +109,8 @@ public class PuzzleManager : MonoBehaviour {
         return false;
       }
     }
+        
         return true;
-  }
-
-  private IEnumerator WaitShuffle(float duration) {
-    yield return new WaitForSeconds(duration);
-        PlayerPrefs.SetInt("SlidePuzzleFinish", 0);
-        PlayerPrefs.Save();
-        Shuffle();
   }
 
   // Daðýtma Methodu
