@@ -27,7 +27,7 @@ public class SceneTransition : MonoBehaviour
 
             if (this.gameObject.name == "Bitis")
             {
-                SceneManager.LoadScene("DGNC");
+                SceneManager.LoadScene("LightHouseChapter");
             }
         }
     }

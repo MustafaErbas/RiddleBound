@@ -21,11 +21,6 @@ namespace PickUpCore
             animator = GetComponent<Animator>();
             controller = FindObjectOfType<ParcaController>();
             parca1 = FindObjectOfType<Parca1>();
-
-            if (controller == null)
-            {
-                Debug.LogError("ParcaController bulunamadý!");
-            }
         }
 
         // Update is called once per frame
